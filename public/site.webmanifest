@@ -6,13 +6,7 @@
   "display": "standalone",
   "background_color": "#1e1b4b",
   "theme_color": "#3b82f6",
-  "icons": [
-    {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    }
-  ],
+  "icons": [],
   "categories": ["entertainment", "utilities"],
   "lang": "en",
   "dir": "ltr"
