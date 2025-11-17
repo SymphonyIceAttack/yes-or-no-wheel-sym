@@ -1,11 +1,14 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ClientLayout } from "@/components/client-layout";
-import { defaultLanguage, languages } from "@/lib/lang";
+import { type Language, languages } from "@/lib/lang";
 
-export default function HomePage() {
-  const dict = languages[defaultLanguage];
+export default function WheelPage() {
+  const params = useParams();
+  const lang = params.lang as Language;
+  const dict = languages[lang];
 
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -81,7 +84,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <ClientLayout lang="en">
+    <ClientLayout>
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-400 via-blue-500 to-indigo-600 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900 font-sans transition-colors duration-500">
         <main className="flex flex-col items-center gap-3 sm:gap-6 px-3 sm:px-6 md:gap-8 md:p-8 w-full max-w-4xl mx-auto">
           {/* Title */}
@@ -98,7 +101,7 @@ export default function HomePage() {
           <div className="relative flex justify-center">
             {/* Wheel Pointer */}
             <div className="absolute -top-1 sm:-top-2 left-1/2 transform -translate-x-1/2 z-10">
-              <div className="w-0 h-0 border-l-[12px] sm:border-l-[16px] sm:border-r-[16px] sm:border-l-[20px] sm:border-r-[20px] border-b-[18px] sm:border-b-[24px] sm:border-b-[30px] border-l-transparent border-r-transparent border-b-yellow-400 drop-shadow-lg animate-bounce"></div>
+              <div className="w-0 h-0 border-l-[12px]   sm:border-l-[20px] sm:border-r-[20px] border-b-[18px]  sm:border-b-[30px] border-l-transparent border-r-transparent border-b-yellow-400 drop-shadow-lg animate-bounce"></div>
             </div>
 
             {/* Wheel Button */}

@@ -1,10 +1,22 @@
 # Next Optimization
 
+# Next Optimization
+
 # UI
 
 - More prominent colors
 - Background gradient with vibrant colors - the background color gradient should be sufficiently prominent
 - Automatic light/dark mode switching and active buttons
+
+# UI setting
+
+- next-themes switch dark and light
+- shadcn ui
+
+# Data validation
+
+- zod schema
+- tanstack/react-form
 
 # Next Development Common Issues
 
@@ -13,6 +25,7 @@ Route Parameter Acquisition
 ```tsx
 useParams()
 useSearchParams()
+
 ```
 
 # Type Validation

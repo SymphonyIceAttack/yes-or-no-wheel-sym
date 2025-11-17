@@ -1,0 +1,19 @@
+{
+  "name": "Yes or No Wheel",
+  "short_name": "YesNo Wheel",
+  "description": "A fun and interactive way to make decisions. Spin the wheel to get a random YES or NO answer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e1b4b",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["entertainment", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+}
