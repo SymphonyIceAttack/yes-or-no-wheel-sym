@@ -96,15 +96,6 @@ Configuration is managed through `wrangler.jsonc`. The deployment process handle
 - Edge runtime compatibility
 - Node.js compatibility polyfills
 
-## Testing Guidelines
-
-**Note**: Currently no testing framework is configured.
-
-When adding tests, follow these conventions:
-- Install a testing framework (Vitest, Jest, or Cypress)
-- Place tests in `__tests__/` directories or alongside source files
-- Use `.test.ts` or `.spec.ts` file extensions
-- Maintain test coverage for critical functionality
 
 ## Pull Request Guidelines
 
