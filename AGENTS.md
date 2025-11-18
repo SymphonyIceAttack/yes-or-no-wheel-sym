@@ -430,3 +430,170 @@ When implementing internationalization:
 - Address all warnings and errors
 - Follow Biome's recommended rulesets
 
+
+## File Editing with apply_patch
+
+### Overview
+
+The project uses the `apply_patch` function for efficient file modifications. This tool allows precise edits to existing files without rewriting the entire file content, making it ideal for targeted updates and maintaining file structure.
+
+### apply_patch Function Usage
+
+**Basic Syntax:**
+```typescript
+apply_patch(file_path: string, original_content: string, updated_content: string): boolean
+```
+
+**Parameters:**
+- `file_path`: Relative path to the file to be modified
+- `original_content`: The exact content that needs to be replaced
+- `updated_content`: The new content that will replace the original
+
+**Return Value:**
+- `true`: Successful modification
+- `false`: Modification failed (content not found or other error)
+
+### Best Practices
+
+**Content Matching Requirements**
+- Use exact string matching for `original_content`
+- Ensure proper escaping of special characters in strings
+- Match whitespace and indentation precisely
+- Verify the content exists in the file before applying changes
+
+**Error Handling**
+- Always check the return value of `apply_patch`
+- Use try-catch blocks for critical file operations
+- Validate file paths exist before modification attempts
+
+### Common Use Cases
+
+**1. Updating Component Props**
+```typescript
+// Before
+<Button variant="default" />
+
+// Using apply_patch
+apply_patch(
+  'components/Button.tsx',
+  '<Button variant="default" />',
+  '<Button variant="primary" size="large" />'
+)
+```
+
+**2. Modifying Function Parameters**
+```typescript
+// Before
+function calculateTotal(items: Item[]): number {
+
+// After modification
+function calculateTotal(items: Item[], taxRate: number = 0.1): number {
+```
+
+**3. Updating Import Statements**
+```typescript
+// Before
+import { useState } from 'react'
+
+// After
+import { useState, useEffect } from 'react'
+```
+
+### Advanced Techniques
+
+**Multi-line Content Updates**
+```typescript
+const originalBlock = `interface UserProps {
+  name: string;
+  email: string;
+}`;
+
+const updatedBlock = `interface UserProps {
+  name: string;
+  email: string;
+  avatar?: string;
+}`;
+
+apply_patch('types/User.ts', originalBlock, updatedBlock);
+```
+
+**Conditional Updates**
+```typescript
+if (apply_patch('config/app.ts', oldConfig, newConfig)) {
+  console.log('Configuration updated successfully');
+} else {
+  console.log('Failed to update configuration');
+}
+```
+
+### File Modification Workflow
+
+1. **Read Current Content**: Use file reading functions to get the current state
+2. **Prepare Changes**: Define the exact content to replace and the new content
+3. **Apply Changes**: Use `apply_patch` with precise string matching
+4. **Verify Results**: Check the return value and validate the changes
+5. **Handle Errors**: Implement proper error handling for failed modifications
+
+### Common Patterns
+
+**Component State Updates**
+```typescript
+// Update state initialization
+apply_patch(
+  'components/MyComponent.tsx',
+  'const [count, setCount] = useState(0);',
+  'const [count, setCount] = useState(0);'
+);
+```
+
+**Configuration Changes**
+```typescript
+// Update environment configuration
+apply_patch(
+  '.env',
+  'NEXT_PUBLIC_API_URL=https://api.example.com',
+  'NEXT_PUBLIC_API_URL=https://new-api.example.com'
+);
+```
+
+**Documentation Updates**
+```typescript
+// Update JSDoc comments
+apply_patch(
+  'utils/helpers.ts',
+  '/**\n * Calculates the sum of two numbers\n */',
+  '/**\n * Calculates the sum of two or more numbers\n * @param numbers - Array of numbers to sum\n */'
+);
+```
+
+### Troubleshooting
+
+**Content Not Found Issues**
+- Verify exact whitespace and indentation
+- Check for hidden characters or encoding issues
+- Ensure the content hasn't been modified since reading
+- Use file reading functions to get the current exact content
+
+**Multiple Occurrences**
+- When content appears multiple times, apply patches in sequence
+- Consider using more specific context to identify the correct location
+- Apply changes from most specific to least specific
+
+**File Path Issues**
+- Always use relative paths from the project root
+- Verify the file exists before attempting modifications
+- Handle permission issues appropriately
+
+### Integration with Development Workflow
+
+**Pre-commit Validation**
+- Run `apply_patch` operations after reading current file state
+- Validate changes using Biome linting (`pnpm lint`)
+- Test functionality after applying patches
+
+**Testing After Modifications**
+- Start development server (`pnpm dev`) to verify changes
+- Run build process (`pnpm build`) to ensure no breaking changes
+- Check deployment preview (`pnpm preview`) for Cloudflare compatibility
+
+Remember to always test your changes locally before committing, and ensure all modifications follow the project's coding standards and conventions.

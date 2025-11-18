@@ -1,14 +1,28 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ClientLayout } from "@/components/client-layout";
 import { type Language, languages } from "@/lib/lang";
 
 export default function WheelPage() {
-  const params = useParams();
-  const lang = params.lang as Language;
+  // According to Next.js docs: useParams works in Client Components
+  const pathname = usePathname();
+  const params = useParams<{ lang: string }>();
+  
+  // Extract language from params or fallback to pathname
+  const langFromParams = params?.lang as Language;
+  const langFromPath = pathname.split("/")[1] as Language;
+  const lang = (langFromParams || langFromPath) as Language;
   const dict = languages[lang];
+
+  console.log('=== WheelPage Debug ===');
+  console.log('pathname:', pathname);
+  console.log('params:', params);
+  console.log('langFromParams:', langFromParams);
+  console.log('langFromPath:', langFromPath);
+  console.log('final lang:', lang);
+  console.log('dict:', dict ? 'Found' : 'Not found');
 
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -39,24 +53,13 @@ export default function WheelPage() {
         }
 
         // Determine result based on final angle
-        // Since the wheel rotates, we need to calculate where the pointer is pointing
-        // Pointer is at 12 o'clock (top), and we check the color at that position
         const finalAngle = newRotation % 360;
-
-        // The pointer is at the top (12 o'clock position)
-        // We need to determine which segment the pointer is pointing to
-        // After rotation, the angle at the pointer position is:
-        // pointerAngle = (360 - finalAngle) % 360
-        // Because the wheel rotates clockwise, the pointer position changes counter-clockwise
         const pointerAngle = (360 - finalAngle) % 360;
-
-        // YES segment: 0-180 degrees (green)
-        // NO segment: 180-360 degrees (red)
         const isYes = pointerAngle >= 0 && pointerAngle < 180;
         const newResult = isYes ? "YES" : "NO";
 
         setResult(newResult);
-        setSpinHistory((prev) => [newResult, ...prev.slice(0, 4)]); // Keep last 5 results
+        setSpinHistory((prev) => [newResult, ...prev.slice(0, 4)]);
         setIsSpinning(false);
       }
     }, 100);
@@ -83,8 +86,38 @@ export default function WheelPage() {
     };
   }, []);
 
+  // Error handling
+  if (!lang) {
+    return (
+      <ClientLayout>
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-400 via-blue-500 to-indigo-600">
+          <div className="text-center text-white p-8">
+            <h1 className="text-4xl font-bold mb-4">Loading...</h1>
+            <p>No language detected</p>
+            <p>Pathname: {pathname}</p>
+            <p>Params: {JSON.stringify(params)}</p>
+          </div>
+        </div>
+      </ClientLayout>
+    );
+  }
+
+  if (!dict) {
+    return (
+      <ClientLayout lang={lang}>
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-400 via-blue-500 to-indigo-600">
+          <div className="text-center text-white p-8">
+            <h1 className="text-4xl font-bold mb-4">Language not supported</h1>
+            <p className="text-xl">Requested: {lang}</p>
+            <p className="text-lg mt-2">Available: {Object.keys(languages).join(', ')}</p>
+          </div>
+        </div>
+      </ClientLayout>
+    );
+  }
+
   return (
-    <ClientLayout>
+    <ClientLayout lang={lang}>
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-400 via-blue-500 to-indigo-600 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900 font-sans transition-colors duration-500">
         <main className="flex flex-col items-center gap-3 sm:gap-6 px-3 sm:px-6 md:gap-8 md:p-8 w-full max-w-4xl mx-auto">
           {/* Title */}
@@ -101,7 +134,7 @@ export default function WheelPage() {
           <div className="relative flex justify-center">
             {/* Wheel Pointer */}
             <div className="absolute -top-1 sm:-top-2 left-1/2 transform -translate-x-1/2 z-10">
-              <div className="w-0 h-0 border-l-[12px]   sm:border-l-[20px] sm:border-r-[20px] border-b-[18px]  sm:border-b-[30px] border-l-transparent border-r-transparent border-b-yellow-400 drop-shadow-lg animate-bounce"></div>
+              <div className="w-0 h-0 border-l-[12px] sm:border-l-[16px] sm:border-r-[16px] sm:border-l-[20px] sm:border-r-[20px] border-b-[18px] sm:border-b-[24px] sm:border-b-[30px] border-l-transparent border-r-transparent border-b-yellow-400 drop-shadow-lg animate-bounce"></div>
             </div>
 
             {/* Wheel Button */}
@@ -116,9 +149,9 @@ export default function WheelPage() {
                 background: `conic-gradient(from 0deg, #22c55e 0deg 180deg, #ef4444 180deg 360deg)`,
                 transform: `rotate(${rotation}deg)`,
                 transition: isSpinning ? "none" : "transform 3s ease-out",
-                touchAction: "manipulation", // 防止双击缩放
+                touchAction: "manipulation",
               }}
-              aria-label="旋转转盘"
+              aria-label={dict.wheel.spinButton}
             >
               {/* YES Section */}
               <div className="absolute inset-0 flex items-center justify-center">

@@ -15,9 +15,10 @@ export function ClientLayout({ children, lang }: ClientLayoutProps) {
   // Always call hooks at the top level
   const params = useParams();
 
-  // Note: currentLang is computed but not currently used in this implementation
-  // It could be used for future enhancements like language-specific styling
-  const _currentLang = lang || (params?.lang as Language);
+  // Properly determine the current language with fallback to 'en'
+  const currentLang: Language = (lang ||
+    (params?.lang as Language) ||
+    "en") as Language;
 
   return (
     <ThemeProvider
@@ -29,7 +30,7 @@ export function ClientLayout({ children, lang }: ClientLayoutProps) {
       <div className="min-h-screen" suppressHydrationWarning>
         {/* Fixed top controls */}
         <div className="fixed top-4 right-4 z-50 flex gap-2">
-          <LanguageSwitcher />
+          <LanguageSwitcher currentLang={currentLang} />
           <ThemeToggle />
         </div>
 
