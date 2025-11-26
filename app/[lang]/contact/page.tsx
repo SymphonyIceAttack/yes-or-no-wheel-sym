@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { t, type LanguageType } from "@/lib/translations";
+import { type LanguageType, t } from "@/lib/translations";
 
 interface PageProps {
   params: Promise<{ lang: string }>;

@@ -1,28 +1,45 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const languages = ["en", "ru", "ja", "es"];
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://yesornowheel.top";
+  const languages = ["en", "ru", "ja", "es"] as const;
 
-  // Root URL (default English)
-  const routes: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  const staticPages = ["", "/about", "/contact", "/privacy"] as const;
 
-  // Language-specific routes
+  const pages: MetadataRoute.Sitemap = [];
+
   languages.forEach((lang) => {
-    routes.push({
-      url: `${baseUrl}/${lang}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
+    staticPages.forEach((page) => {
+      const url =
+        lang === "en" ? `${baseUrl}${page}` : `${baseUrl}/${lang}${page}`;
+      const changeFreq =
+        page === "" ? "weekly" : page === "/privacy" ? "yearly" : "monthly";
+      const priority =
+        page === ""
+          ? 1.0
+          : page === "/about"
+            ? 0.7
+            : page === "/contact"
+              ? 0.6
+              : 0.5;
+
+      pages.push({
+        url,
+        lastModified: new Date("2025-11-26"),
+        changeFrequency: changeFreq as any,
+        priority,
+        alternates: {
+          languages: Object.fromEntries(
+            languages.map((l) => [
+              l,
+              l === "en" ? `${baseUrl}${page}` : `${baseUrl}/${l}${page}`,
+            ]),
+          ),
+        },
+      });
     });
   });
 
-  return routes;
+  return pages;
 }

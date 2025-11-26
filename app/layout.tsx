@@ -7,7 +7,11 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Yes or No Wheel - Make Quick Decisions Instantly",
+  metadataBase: new URL("https://yesornowheel.top"),
+  title: {
+    default: "Yes or No Wheel - Make Quick Decisions Instantly",
+    template: "%s | Yes or No Wheel",
+  },
   description:
     "Spin the wheel to get a quick Yes or No answer. A fun and simple decision-making tool for when you need help making choices. Perfect for quick decisions!",
   keywords: [
@@ -18,37 +22,126 @@ export const metadata: Metadata = {
     "decision tool",
     "yes no generator",
     "random decision",
+    "decision support",
+    "spinning wheel",
+    "choice generator",
   ],
-  authors: [{ name: "Yes or No Wheel" }],
+  authors: [{ name: "Yes or No Wheel Team", url: "https://yesornowheel.top" }],
   creator: "Yes or No Wheel",
   publisher: "Yes or No Wheel",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  category: "utilities",
+  classification: "Decision Making Tool, Random Generator, Entertainment",
+  referrer: "origin-when-cross-origin",
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-thumbnail-preview": true,
+      unavailable_after: "2026-12-31",
     },
+  },
+  verification: {
+    google: "google-site-verification-code-here",
+    yandex: "yandex-verification-code-here",
+    yahoo: "yahoo-verification-code-here",
   },
   openGraph: {
     title: "Yes or No Wheel - Make Quick Decisions Instantly",
     description:
-      "Spin the wheel to get a quick Yes or No answer. A fun decision-making tool.",
+      "Spin the wheel to get a quick Yes or No answer. A fun and simple decision-making tool for when you need help making choices. Perfect for quick decisions!",
+    url: "https://yesornowheel.top",
+    siteName: "Yes or No Wheel",
     type: "website",
     locale: "en_US",
     alternateLocale: ["ru_RU", "ja_JP", "es_ES"],
-    siteName: "Yes or No Wheel",
+    images: [
+      {
+        url: "/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Yes or No Wheel - Decision Making Tool",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-192x192.png",
+        width: 192,
+        height: 192,
+        alt: "Yes or No Wheel Logo",
+        type: "image/png",
+      },
+    ],
+    videos: [],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yes or No Wheel - Make Quick Decisions",
-    description: "Spin the wheel to get a quick Yes or No answer.",
+    site: "@yesornowheel",
+    creator: "@yesornowheel",
+    title: "Yes or No Wheel - Make Quick Decisions Instantly",
+    description:
+      "Spin the wheel to get a quick Yes or No answer. Perfect for quick decisions!",
+    images: ["/android-chrome-512x512.png"],
+    labels: {
+      "twitter:label1": "Use Case",
+      "twitter:data1": "Decision Making",
+      "twitter:label2": "Languages",
+      "twitter:data2": "4 Languages",
+    },
   },
-  generator: "Next.js",
+  appleWebApp: {
+    capable: true,
+    title: "Yes or No Wheel",
+    statusBarStyle: "default",
+    startupImage: [
+      "/apple-touch-icon.png",
+      {
+        url: "/apple-touch-icon.png",
+        media: "(device-width: 768px) and (device-height: 1024px)",
+      },
+    ],
+  },
+  appLinks: {
+    ios: [
+      {
+        url: "https://yesornowheel.top",
+        app_store_id: "1234567890",
+        app_name: "Yes or No Wheel",
+      },
+    ],
+    android: [
+      {
+        url: "https://yesornowheel.top",
+        package: "com.yesornowheel.app",
+        app_name: "Yes or No Wheel",
+      },
+    ],
+    web: [
+      {
+        url: "https://yesornowheel.top",
+        should_fallback: true,
+      },
+    ],
+  },
+  generator: "Next.js 16",
   applicationName: "Yes or No Wheel",
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "msapplication-TileColor": "#3b82f6",
+    "msapplication-config": "/browserconfig.xml",
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -71,10 +164,14 @@ export const metadata: Metadata = {
         sizes: "512x512",
         type: "image/png",
       },
+      {
+        rel: "mask-icon",
+        url: "/android-chrome-192x192.png",
+        color: "#3b82f6",
+      },
     ],
   },
   manifest: "/site.webmanifest",
-  metadataBase: new URL("https://yesornowheel.top"),
 };
 
 export const viewport: Viewport = {

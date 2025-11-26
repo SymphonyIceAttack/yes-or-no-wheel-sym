@@ -1,23 +1,27 @@
 {
-  "name": "Yes or No Wheel",
+  "name": "Yes or No Wheel - Make Quick Decisions Instantly",
   "short_name": "YesNo Wheel",
-  "description": "A fun and interactive way to make decisions. Spin the wheel to get a random YES or NO answer.",
+  "description": "A fun and interactive way to make decisions. Spin the wheel to get a random YES or NO answer. Perfect decision-making tool for quick choices.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#1e1b4b",
   "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
   "icons": [
     {
       "src": "/favicon-16x16.png",
       "sizes": "16x16",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/android-chrome-192x192.png",
@@ -38,7 +42,54 @@
       "purpose": "any"
     }
   ],
-  "categories": ["entertainment", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Spin Wheel",
+      "short_name": "Spin",
+      "description": "Spin the decision wheel",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn more about Yes or No Wheel",
+      "url": "/about",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "label": "Yes or No Wheel interface showing the decision spinner"
+    }
+  ],
+  "categories": ["entertainment", "utilities", "productivity"],
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://yesornowheel.top?source=pwa"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+yynw",
+      "url": "/?decision=%s"
+    }
+  ]
 }
