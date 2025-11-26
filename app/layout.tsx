@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"] });
+const geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://yesornowheel.top"),
@@ -48,7 +48,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "max-thumbnail-preview": true,
       unavailable_after: "2026-12-31",
     },
   },
@@ -92,12 +91,6 @@ export const metadata: Metadata = {
     description:
       "Spin the wheel to get a quick Yes or No answer. Perfect for quick decisions!",
     images: ["/android-chrome-512x512.png"],
-    labels: {
-      "twitter:label1": "Use Case",
-      "twitter:data1": "Decision Making",
-      "twitter:label2": "Languages",
-      "twitter:data2": "4 Languages",
-    },
   },
   appleWebApp: {
     capable: true,
@@ -192,7 +185,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

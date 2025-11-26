@@ -1,4 +1,8 @@
+import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
+
+const geist = Geist({ subsets: ["latin"] });
+const geistMono = Geist_Mono({ subsets: ["latin"] });
 
 interface LangLayoutProps {
   children: ReactNode;
@@ -13,7 +17,11 @@ export default async function LangLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body className="font-sans antialiased">{children}</body>
+      <body
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
