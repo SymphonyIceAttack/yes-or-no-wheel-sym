@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -62,11 +63,16 @@ export default async function AboutPage({ params }: PageProps) {
           </h1>
 
           <div className="prose prose-lg dark:prose-invert max-w-none space-y-6">
-            <img
-              src="/images/decision-wheel-about.jpeg"
-              alt="Yes or No Wheel"
-              className="w-full rounded-2xl shadow-lg mb-8"
-            />
+            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg mb-8">
+              <Image
+                src="/images/decision-wheel-about.jpeg"
+                alt="Yes or No Wheel"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
 
             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               {t("aboutDescription1", language)}
@@ -80,21 +86,29 @@ export default async function AboutPage({ params }: PageProps) {
               {t("ourStoryText", language)}
             </p>
 
-            <img
-              src="/images/team-collaboration.jpeg"
-              alt="Team Collaboration"
-              className="w-full rounded-2xl shadow-lg my-8"
-            />
+            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg my-8">
+              <Image
+                src="/images/team-collaboration.jpeg"
+                alt="Team Collaboration"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                className="object-cover"
+              />
+            </div>
 
             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               {t("aboutDescription2", language)}
             </p>
 
-            <img
-              src="/images/decision-making.jpeg"
-              alt="Decision Making"
-              className="w-full rounded-2xl shadow-lg my-8"
-            />
+            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg my-8">
+              <Image
+                src="/images/decision-making.jpeg"
+                alt="Decision Making"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                className="object-cover"
+              />
+            </div>
 
             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
               {t("aboutDescription3", language)}

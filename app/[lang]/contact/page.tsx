@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -61,11 +62,16 @@ export default async function ContactPage({ params }: PageProps) {
             {t("contactTitle", language)}
           </h1>
 
-          <img
-            src="/images/contact-support.jpeg"
-            alt="Contact Support"
-            className="w-full rounded-2xl shadow-lg mb-8"
-          />
+          <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg mb-8">
+            <Image
+              src="/images/contact-support.jpeg"
+              alt="Contact Support"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+              className="object-cover"
+              priority
+            />
+          </div>
 
           <p className="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed">
             {t("getInTouchText", language)}
