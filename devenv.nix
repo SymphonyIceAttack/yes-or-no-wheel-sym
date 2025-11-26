@@ -9,7 +9,18 @@
 {
   # https://devenv.sh/basics/
   env.GREET = "devenv";
-  dotenv.enable = true;
 
-  # See full reference at https://devenv.sh/reference/options/
+  dotenv = {
+    disableHint = true;
+    enable = true;
+    filename = ".env.claude";
+  };
+  # https://devenv.sh/services/
+  # services.postgres.enable = true;
+
+  tasks."biome:check" = {
+    exec = "npx biome check --write";
+    before = [ "devenv:enterShell" ];
+  };
+
 }

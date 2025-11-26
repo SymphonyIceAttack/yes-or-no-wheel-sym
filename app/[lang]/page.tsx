@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { DecisionWheel } from "@/components/decision-wheel";
 import { FAQ } from "@/components/faq";
 import { Footer } from "@/components/footer";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
-import type { LanguageType } from "@/lib/translations";
+import { t, type LanguageType } from "@/lib/translations";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -52,10 +53,40 @@ export default async function LangPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/10 transition-colors duration-300">
-      <div className="fixed top-6 right-6 z-50 flex items-center gap-3">
-        <LanguageSwitcher currentLang={language} />
-        <ThemeToggle />
-      </div>
+      <nav className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border-b border-white/10 sticky top-0 z-40">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link
+            href={`/${language}`}
+            className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+          >
+            {t("heroTitle", language)}
+          </Link>
+          <div className="hidden md:flex items-center gap-6">
+            <Link
+              href={`/${language}/about`}
+              className="text-sm font-medium hover:opacity-80 transition-opacity"
+            >
+              {t("aboutUs", language)}
+            </Link>
+            <Link
+              href={`/${language}/contact`}
+              className="text-sm font-medium hover:opacity-80 transition-opacity"
+            >
+              {t("contact", language)}
+            </Link>
+            <Link
+              href={`/${language}/privacy`}
+              className="text-sm font-medium hover:opacity-80 transition-opacity"
+            >
+              {t("privacyPolicy", language)}
+            </Link>
+          </div>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher currentLang={language} />
+            <ThemeToggle />
+          </div>
+        </div>
+      </nav>
 
       <div className="container mx-auto px-4 py-16">
         <DecisionWheel language={language} />
